@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Django To Do List App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div id="myDIV" class="header">
+  <h2 style="margin:5px">Django To Do List App</h2>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input type="text" name="details" id="myInput" placeholder="Details....">
+    <button type="submit" class="addBtn">Add</button>
+  </form>
+</div>
+<div class="content">
+    <div class="todo">
+        <h3>To DO</h3>
+        <ul>
+            {% for todo in todos reversed %}
+            {% if todo.status == 'todo' %}
+            <li style="text-align: left;">{{ todo.details }} <span class="close"><a style="text-decoration: none; color: black;" href="done/{{todo.id}}">DONE</a></span></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class='done'>
+        <h3>Done</h3>
+        <ul>
+            {% for todo in todos %}
+            {% if todo.status == 'done' %}
+            <li style='text-decoration: line-through;'>{{ todo.details }} <span class="close"><a style="text-decoration: none; color: black;" href="delete/{{todo.id}}">DELETE</a></span></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+
+</body>
+</html>
